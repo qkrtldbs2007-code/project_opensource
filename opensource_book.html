@@ -100,3 +100,230 @@
   </div>
 </body>
 </html>
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>상·하단 변형 책등 아이콘 레이아웃</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 24px;
+      font-family: sans-serif;
+    }
+
+    /* 가장 바깥 갈색 프레임 */
+    .outer-frame {
+      width: 100%;
+      max-width: 760px;
+      min-height: 780px;
+      border: 2px solid #9c6b43;
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 165px 1fr 165px;
+      gap: 24px;
+    }
+
+    /* 좌·우 사이드바 컨테이너 */
+    .side-column {
+      border: 2px solid #9c6b43;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .side-box {
+      flex: 1;
+      border: 2px solid #e06655;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 가운데 열 */
+    .center-column {
+      display: grid;
+      grid-template-rows: 110px 1fr 110px;
+      gap: 18px;
+    }
+
+    /* 상·하단 보라색 영역 */
+    .shelf-box {
+      border: 2px solid #8e44ad;
+      padding: 8px 16px 0 16px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 5px;
+      overflow: hidden;
+    }
+
+    .main-box {
+      border: 2px solid #2e8b57;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ===== 공통 책등 아이콘 스타일 ===== */
+    .book {
+      position: relative;
+      border-radius: 3px 3px 0 0;
+      box-shadow: inset 2px 0 3px rgba(255, 255, 255, 0.35),
+                  inset -2px 0 3px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .book:hover {
+      transform: translateY(-6px);
+    }
+
+    /* 기본 가로 띠 장식 */
+    .book::before,
+    .book::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-top: 1px solid rgba(255, 255, 255, 0.65);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+    }
+
+    .book::before { top: 11px; }
+    .book::after  { bottom: 11px; }
+
+    /* 장식 띠 위치를 다르게 준 변형 클래스 */
+    .band-wide::before { top: 18px; }
+    .band-wide::after  { bottom: 18px; }
+
+    /* ===== [상단 책장] 따뜻한 웜톤 책등 세트 ===== */
+    .t-orange { width: 22px; height: 72px; background-color: #ef8336; }
+    .t-cream  { width: 17px; height: 89px; background-color: #e6dfd5; }
+    .t-red    { width: 25px; height: 78px; background-color: #a93b24; }
+    .t-taupe  { width: 23px; height: 86px; background-color: #b79c89; }
+    .t-green  { width: 21px; height: 74px; background-color: #6b9e23; }
+    .t-yellow { width: 18px; height: 83px; background-color: #f3ce74; }
+    .t-gold   { width: 29px; height: 66px; background-color: #d4c66e; }
+    .t-brown  { width: 20px; height: 93px; background-color: #7c5e2c; }
+
+    .t-tilt {
+      width: 20px;
+      height: 70px;
+      background-color: #93bd67;
+      transform: rotate(-6deg);
+      transform-origin: bottom left;
+      margin-left: 4px;
+    }
+
+    .t-tilt span {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #f7c325;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ===== [하단 책장] 차분한 쿨·파스텔톤 책등 세트 ===== */
+    .b-tilt-left {
+      width: 19px;
+      height: 74px;
+      background-color: #e07a5f;
+      transform: rotate(5deg);
+      transform-origin: bottom right;
+      margin-right: 4px;
+    }
+
+    .b-navy   { width: 26px; height: 91px; background-color: #2b4162; }
+    .b-teal   { width: 20px; height: 77px; background-color: #3d7a74; }
+    .b-pink   { width: 24px; height: 67px; background-color: #d89a9e; }
+    .b-wine   { width: 19px; height: 87px; background-color: #6d2e46; }
+    .b-sage   { width: 27px; height: 73px; background-color: #84a59d; }
+    .b-slate  { width: 21px; height: 84px; background-color: #5c768d; }
+    .b-sand   { width: 17px; height: 79px; background-color: #d6ccc2; }
+    .b-plum   { width: 24px; height: 90px; background-color: #5e548e; }
+
+    .b-plum span {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background-color: #f4d58d;
+    }
+  </style>
+</head>
+<body>
+  <div class="outer-frame">
+    <!-- 왼쪽 열 -->
+    <aside class="side-column">
+      <div class="side-box">좌 1</div>
+      <div class="side-box">좌 2</div>
+      <div class="side-box">좌 3</div>
+    </aside>
+
+    <!-- 가운데 열 -->
+    <main class="center-column">
+      <!-- 상단 보라색 영역 (웜톤 책장) -->
+      <section class="shelf-box" aria-label="상단 책장">
+        <div class="book t-orange" title="상단 책 1"></div>
+        <div class="book t-cream band-wide" title="상단 책 2"></div>
+        <div class="book t-red" title="상단 책 3"></div>
+        <div class="book t-taupe band-wide" title="상단 책 4"></div>
+        <div class="book t-green" title="상단 책 5"></div>
+        <div class="book t-yellow" title="상단 책 6"></div>
+        <div class="book t-gold band-wide" title="상단 책 7"></div>
+        <div class="book t-brown" title="상단 책 8"></div>
+        <div class="book t-tilt" title="상단 책 9"><span></span></div>
+      </section>
+
+      <!-- 중앙 초록색 영역 -->
+      <section class="main-box">중앙</section>
+
+      <!-- 하단 보라색 영역 (쿨·파스텔톤 책장) -->
+      <section class="shelf-box" aria-label="하단 책장">
+        <div class="book b-tilt-left" title="하단 책 1"></div>
+        <div class="book b-navy band-wide" title="하단 책 2"></div>
+        <div class="book b-teal" title="하단 책 3"></div>
+        <div class="book b-pink band-wide" title="하단 책 4"></div>
+        <div class="book b-wine" title="하단 책 5"></div>
+        <div class="book b-sage" title="하단 책 6"></div>
+        <div class="book b-slate band-wide" title="하단 책 7"></div>
+        <div class="book b-sand" title="하단 책 8"></div>
+        <div class="book b-plum" title="하단 책 9"><span></span></div>
+      </section>
+    </main>
+
+    <!-- 오른쪽 열 -->
+    <aside class="side-column">
+      <div class="side-box">우 1</div>
+      <div class="side-box">우 2</div>
+      <div class="side-box">우 3</div>
+    </aside>
+  </div>
+</body>
+</html>
+
+
