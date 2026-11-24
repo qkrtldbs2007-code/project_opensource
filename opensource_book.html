@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>다크 우드 책장 & 방명록 레이아웃</title>
-  <!-- 동글동글 귀엽고 둥근 한글 손글씨 폰트 -->
   <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@400;700&family=Gaegu:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     * {
@@ -23,7 +22,7 @@
       font-family: "Gaegu", "Malgun Gothic", sans-serif;
     }
 
-    /* 가장 바깥 어두운 우드 프레임: 항상 3열(좌-중-우) 유지 */
+    /* 가장 바깥 어두운 우드 프레임 (항상 3열 고정) */
     .outer-frame {
       width: 720px;
       min-width: 720px;
@@ -34,8 +33,6 @@
       border: 4px solid #7d5638;
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18),
                   inset 0 0 28px rgba(0, 0, 0, 0.55);
-
-      /* 가로 방향 다크 월넛 나뭇결 */
       background-color: #3d2414;
       background-image:
         repeating-linear-gradient(
@@ -57,21 +54,22 @@
         linear-gradient(90deg, #361f11 0%, #4a2c18 50%, #361f11 100%);
     }
 
-    /* 좌·우 사이드바 패널 (각각 세로 3칸씩 배치) */
+    /* 좌·우 사이드바 패널 */
     .side-column {
       background-color: #f6f2e9;
-      padding: 24px 18px;
+      padding: 20px 14px;
       border-radius: 4px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 24px;
+      gap: 20px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
     }
 
     .side-box {
       flex: 1;
-      min-height: 155px;
+      min-height: 160px;
+      padding: 8px;
       background-color: #f9f8f6;
       border-radius: 3px;
       display: flex;
@@ -79,9 +77,66 @@
       justify-content: center;
       box-shadow: 0 3px 6px rgba(61, 37, 21, 0.14),
                   inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    /* 가운데 열 (상단 책장 - 중앙 방명록 - 하단 책장) */
+    .side-box:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 14px rgba(61, 37, 21, 0.22);
+    }
+
+    /* ===== 양쪽 6칸 내부 책 표지 아이콘 (하얀 공간을 꽉 채우는 크기) ===== */
+    .book-icon {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 4px 10px 10px 4px;
+      box-shadow: -3px 4px 8px rgba(61, 37, 21, 0.22),
+                  inset 12px 0 0 rgba(0, 0, 0, 0.14),
+                  inset 15px 0 0 rgba(255, 255, 255, 0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 22px 12px 14px 22px;
+      transition: transform 0.2s ease;
+    }
+
+    .side-box:hover .book-icon {
+      transform: scale(1.03) rotate(-1.5deg);
+    }
+
+    /* 책 표지 중앙 라벨 스티커 */
+    .book-icon::before {
+      content: "";
+      width: 58px;
+      height: 36px;
+      background-color: rgba(255, 253, 248, 0.88);
+      border-radius: 3px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    }
+
+    /* 책갈피 끈 디테일 */
+    .book-icon::after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      right: 18px;
+      width: 11px;
+      height: 14px;
+      background-color: #e06a55;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 72%, 0 100%);
+    }
+
+    .icon-coral  { background-color: #e2836b; }
+    .icon-mustard{ background-color: #dfb44c; }
+    .icon-sage   { background-color: #84a98c; }
+    .icon-slate  { background-color: #6b8cae; }
+    .icon-plum   { background-color: #8c6d9c; }
+    .icon-cocoa  { background-color: #9c7a65; }
+
+    /* 가운데 열 */
     .center-column {
       display: flex;
       flex-direction: column;
@@ -89,24 +144,24 @@
       gap: 22px;
     }
 
-    /* ===== 상단 책장 ===== */
-    .top-shelf-wrap {
-      position: relative;
-      height: 112px;
+    /* ===== 상·하단 책장 공통 (흰 배경 공간 + 나무 선반) ===== */
+    .shelf-wrap {
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
       align-items: center;
-      padding-top: 10px;
     }
 
-    .books-row {
+    .shelf-box {
+      width: 92%;
+      height: 108px;
+      background-color: #f6f2e9;
+      border-radius: 4px 4px 0 0;
+      padding: 10px 10px 0 10px;
       display: flex;
       align-items: flex-end;
       justify-content: center;
       gap: 2px;
-      z-index: 1;
-      padding: 0 10px;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.12);
     }
 
     .wood-ledge {
@@ -129,7 +184,6 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
     }
 
-    /* 둥글고 귀여운 'Dongle' 타이틀 폰트 */
     .guestbook-title {
       font-family: "Dongle", "Gaegu", sans-serif;
       font-size: 4.1rem;
@@ -140,7 +194,6 @@
       margin-bottom: 18px;
     }
 
-    /* 포스트잇 보드 */
     .notes-board {
       width: 100%;
       display: flex;
@@ -160,7 +213,6 @@
       gap: 32px;
     }
 
-    /* 정사각형 파스텔 포스트잇 */
     .sticky-note {
       position: relative;
       width: 82px;
@@ -200,26 +252,6 @@
     .note-blue     { background-color: #bce0f7; transform: rotate(2.5deg); }
     .note-lavender { background-color: #d9c3f7; transform: rotate(-3deg); }
 
-    /* ===== 하단 책장 ===== */
-    .bottom-shelf-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .bottom-shelf-box {
-      width: 92%;
-      height: 108px;
-      background-color: #f6f2e9;
-      border-radius: 4px 4px 0 0;
-      padding: 10px 10px 0 10px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      gap: 2px;
-      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.12);
-    }
-
     /* ===== 공통 책등 스타일 ===== */
     .book {
       position: relative;
@@ -248,17 +280,17 @@
     .book::after  { bottom: 10px; }
 
     /* [상단 책장] 책 10권 */
-    .t-orange { width: 25px; height: 74px; background-color: #df7c2e; }
-    .t-cream  { width: 14px; height: 90px; background-color: #e6dfd3; }
-    .t-red    { width: 28px; height: 82px; background-color: #a93221; }
-    .t-taupe  { width: 25px; height: 88px; background-color: #b79b87; }
-    .t-green  { width: 32px; height: 78px; background-color: #6ea322; }
-    .t-olive  { width: 24px; height: 84px; background-color: #8b8244; }
+    .t-orange { width: 24px; height: 74px; background-color: #df7c2e; }
+    .t-cream  { width: 13px; height: 90px; background-color: #e6dfd3; }
+    .t-red    { width: 26px; height: 82px; background-color: #a93221; }
+    .t-taupe  { width: 24px; height: 88px; background-color: #b79b87; }
+    .t-green  { width: 30px; height: 78px; background-color: #6ea322; }
+    .t-olive  { width: 23px; height: 84px; background-color: #8b8244; }
     .t-yellow { width: 11px; height: 91px; background-color: #e8c558; }
-    .t-gold   { width: 26px; height: 86px; background-color: #b5a333; }
-    .t-mustard{ width: 15px; height: 93px; background-color: #9e8a2c; }
+    .t-gold   { width: 24px; height: 86px; background-color: #b5a333; }
+    .t-mustard{ width: 14px; height: 93px; background-color: #9e8a2c; }
     .t-lime-tilt {
-      width: 22px;
+      width: 21px;
       height: 76px;
       background-color: #a8c938;
       transform: rotate(-10deg);
@@ -287,18 +319,18 @@
 </head>
 <body>
   <div class="outer-frame">
-    <!-- 왼쪽 열 (3칸) -->
+    <!-- 왼쪽 열 (책 아이콘 3칸) -->
     <aside class="side-column">
-      <div class="side-box"></div>
-      <div class="side-box"></div>
-      <div class="side-box"></div>
+      <div class="side-box" title="책 1"><div class="book-icon icon-coral"></div></div>
+      <div class="side-box" title="책 2"><div class="book-icon icon-mustard"></div></div>
+      <div class="side-box" title="책 3"><div class="book-icon icon-sage"></div></div>
     </aside>
 
     <!-- 가운데 열 (상단 책장 - 방명록 - 하단 책장) -->
     <main class="center-column">
-      <!-- 상단 책장 -->
-      <section class="top-shelf-wrap" aria-label="상단 책장">
-        <div class="books-row">
+      <!-- 상단 책장 (흰 배경 공간 + 나무 선반) -->
+      <section class="shelf-wrap" aria-label="상단 책장">
+        <div class="shelf-box">
           <div class="book t-orange" title="상단 책 1"></div>
           <div class="book t-cream" title="상단 책 2"></div>
           <div class="book t-red" title="상단 책 3"></div>
@@ -333,9 +365,9 @@
         </div>
       </section>
 
-      <!-- 하단 책장 -->
-      <section class="bottom-shelf-wrap" aria-label="하단 책장">
-        <div class="bottom-shelf-box">
+      <!-- 하단 책장 (흰 배경 공간 + 나무 선반) -->
+      <section class="shelf-wrap" aria-label="하단 책장">
+        <div class="shelf-box">
           <div class="book b-navy" title="하단 책 1"></div>
           <div class="book b-teal" title="하단 책 2"></div>
           <div class="book b-pink" title="하단 책 3"></div>
@@ -350,11 +382,11 @@
       </section>
     </main>
 
-    <!-- 오른쪽 열 (3칸) -->
+    <!-- 오른쪽 열 (책 아이콘 3칸) -->
     <aside class="side-column">
-      <div class="side-box"></div>
-      <div class="side-box"></div>
-      <div class="side-box"></div>
+      <div class="side-box" title="책 4"><div class="book-icon icon-slate"></div></div>
+      <div class="side-box" title="책 5"><div class="book-icon icon-plum"></div></div>
+      <div class="side-box" title="책 6"><div class="book-icon icon-cocoa"></div></div>
     </aside>
   </div>
 </body>
