@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>공간 분할 레이아웃</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 24px;
+      font-family: sans-serif;
+    }
+
+    /* 가장 바깥 갈색 프레임 */
+    .outer-frame {
+      width: 100%;
+      max-width: 760px;
+      min-height: 780px;
+      border: 2px solid #9c6b43;
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 165px 1fr 165px; /* 좌측 / 중앙 / 우측 비율 */
+      gap: 24px;
+    }
+
+    /* 좌·우 사이드바 컨테이너 (갈색 테두리 + 세로 3분할) */
+    .side-column {
+      border: 2px solid #9c6b43;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    /* 사이드바 내부 빨간/주황 박스 */
+    .side-box {
+      flex: 1;
+      border: 2px solid #e06655;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 가운데 열 (상단 보라 / 중앙 초록 / 하단 보라) */
+    .center-column {
+      display: grid;
+      grid-template-rows: 110px 1fr 110px;
+      gap: 18px;
+    }
+
+    .top-box,
+    .bottom-box {
+      border: 2px solid #8e44ad;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .main-box {
+      border: 2px solid #2e8b57;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="outer-frame">
+    <!-- 왼쪽 열 -->
+    <aside class="side-column">
+      <div class="side-box">좌 1</div>
+      <div class="side-box">좌 2</div>
+      <div class="side-box">좌 3</div>
+    </aside>
+
+    <!-- 가운데 열 -->
+    <main class="center-column">
+      <section class="top-box">상단</section>
+      <section class="main-box">중앙</section>
+      <section class="bottom-box">하단</section>
+    </main>
+
+    <!-- 오른쪽 열 -->
+    <aside class="side-column">
+      <div class="side-box">우 1</div>
+      <div class="side-box">우 2</div>
+      <div class="side-box">우 3</div>
+    </aside>
+  </div>
+</body>
+</html>
