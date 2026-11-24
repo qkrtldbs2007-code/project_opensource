@@ -1,0 +1,251 @@
+/* 구글 폰트 불러오기 (차분한 서재 느낌의 명조 + 고딕 조합) */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@500;700&display=swap');
+
+/* 기본 여백 초기화 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 전체 배경 스타일: 밤의 아늑한 서재 분위기 */
+body {
+  background: linear-gradient(to bottom, #161822, #261e1b);
+  background-attachment: fixed;
+  color: #f5eadc;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* 전체 레이아웃 컨테이너 */
+.container {
+  max-width: 920px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 50px 20px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 상단 제목 영역 */
+.main-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.main-header h1 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 2.2rem;
+  color: #ffb87a; /* 은은한 조명 포인트 색상 */
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+
+.main-header p {
+  font-size: 0.95rem;
+  color: #cbbba8;
+}
+
+.library-area {
+  width: 100%;
+}
+
+/* ================= 책장(Bookshelf) 스타일 ================= */
+.bookshelf-wrapper {
+  margin-bottom: 36px;
+}
+
+/* 책들이 나란히 꽂혀 있는 공간 */
+.bookshelf {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 14px;
+  padding: 24px 20px 0;
+  min-height: 230px;
+}
+
+/* 개별 책등(세로로 꽂힌 책) 디자인 */
+.book-spine {
+  width: 68px;
+  height: 195px;
+  background-color: var(--book-color, #6b3e2e);
+  color: #fdf6ec;
+  border: none;
+  border-top: 4px solid rgba(255, 255, 255, 0.25);
+  border-left: 3px solid rgba(255, 255, 255, 0.12);
+  border-right: 4px solid rgba(0, 0, 0, 0.35);
+  border-radius: 6px 6px 2px 2px;
+  padding: 14px 6px;
+  cursor: pointer;
+
+  /* 세로 글씨 배치 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 책에 마우스를 올렸을 때 살짝 위로 뽑히는 효과 */
+.book-spine:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 12px 22px rgba(255, 180, 123, 0.25);
+}
+
+/* 현재 선택된 책등 강조 */
+.book-spine.active {
+  transform: translateY(-18px);
+  outline: 2px solid #ffb87a;
+  box-shadow: 0 14px 28px rgba(255, 180, 123, 0.38);
+}
+
+.book-tag {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  padding-bottom: 4px;
+}
+
+.book-spine-title {
+  writing-mode: vertical-rl; /* 책등 제목을 세로로 표시 */
+  text-orientation: upright;
+  font-family: 'Noto Serif KR', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  max-height: 115px;
+  overflow: hidden;
+}
+
+.book-spine-author {
+  font-size: 0.72rem;
+  color: #ead8c3;
+}
+
+/* 나무 책장 선반 받침대 */
+.shelf-plank {
+  width: 100%;
+  height: 18px;
+  background: linear-gradient(to bottom, #6e4730, #472c1d);
+  border-radius: 4px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+}
+
+/* ================= 책 내용 출력 카드 스타일 ================= */
+.book-reader {
+  background-color: rgba(24, 20, 19, 0.9);
+  border: 1px solid rgba(255, 184, 122, 0.22);
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* 기본적으로 모든 책 내용은 숨기고 active만 표시 */
+.book-content {
+  display: none;
+  gap: 28px;
+  align-items: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.book-content.active {
+  display: flex;
+}
+
+/* 책 표지 이미지 */
+.book-cover {
+  width: 190px;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 10px;
+  background-color: #332924;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+}
+
+.book-details {
+  flex: 1;
+}
+
+.chapter-label {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: #ffb87a;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.book-details h2 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.6rem;
+  color: #fff6eb;
+  margin-bottom: 6px;
+}
+
+.book-details h3 {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #cbbba8;
+  margin-bottom: 18px;
+}
+
+.book-summary {
+  font-size: 0.98rem;
+  color: #f0e2d0;
+  margin-bottom: 22px;
+}
+
+/* 버튼 스타일 */
+.detail-link {
+  display: inline-block;
+  padding: 10px 18px;
+  background-color: rgba(255, 184, 122, 0.15);
+  color: #ffb87a;
+  border: 1px solid #ffb87a;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.detail-link:hover {
+  background-color: #ffb87a;
+  color: #1d1715;
+}
+
+.main-footer {
+  margin-top: auto;
+  padding-top: 36px;
+  font-size: 0.82rem;
+  color: #8f8173;
+}
+
+/* 부드럽게 나타나는 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 모바일 화면 대응 */
+@media (max-width: 640px) {
+  .book-content.active {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .book-cover {
+    width: 160px;
+    height: 220px;
+  }
+}
