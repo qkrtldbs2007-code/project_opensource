@@ -1,1 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 브라우저 탭에 표시될 제목 -->
+  <title>우리의 작은 서재 | 미니 홈페이지</title>
+  <!-- 같은 폴더에 있는 style.css와 연결 -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+  <div class="container">
+    <!-- 1. 상단 헤더 영역 -->
+    <header class="main-header">
+      <h1>우리의 작은 서재</h1>
+      <p>책장에 꽂힌 책을 클릭하면 그 안에 담긴 이야기가 펼쳐집니다.</p>
+    </header>
+
+    <!-- 2. 책장(Bookshelf) 영역: 책등을 클릭하면 아래 내용이 바뀝니다 -->
+    <main class="library-area">
+      <section class="bookshelf-wrapper" aria-label="책장 선반">
+        <div class="bookshelf">
+          
+          <!-- [책 1] data-book="book1" 속성이 아래 내용 박스와 연결됩니다 -->
+          <button type="button" class="book-spine active" data-book="book1" style="--book-color: #7c3f2c;">
+            <span class="book-tag">01</span>
+            <span class="book-spine-title">첫 번째 책 제목</span>
+            <span class="book-spine-author">지은이 1</span>
+          </button>
+
+          <!-- [책 2] -->
+          <button type="button" class="book-spine" data-book="book2" style="--book-color: #2f5249;">
+            <span class="book-tag">02</span>
+            <span class="book-spine-title">두 번째 책 제목</span>
+            <span class="book-spine-author">지은이 2</span>
+          </button>
+
+          <!-- [책 3] -->
+          <button type="button" class="book-spine" data-book="book3" style="--book-color: #364563;">
+            <span class="book-tag">03</span>
+            <span class="book-spine-title">세 번째 책 제목</span>
+            <span class="book-spine-author">지은이 3</span>
+          </button>
+
+          <!-- 팀원이 4명이라면 위 <button> 블록을 복사해서 data-book="book4"로 하나 더 추가하세요! -->
+        </div>
+        <!-- 나무 책장 선반 받침대 -->
+        <div class="shelf-plank"></div>
+      </section>
+
+      <!-- 3. 선택한 책의 상세 내용이 나오는 영역 -->
+      <section class="book-reader" aria-live="polite">
+        
+        <!-- [책 1 내용] 처음 화면에 기본으로 보이도록 active 클래스가 붙어 있습니다 -->
+        <article id="book1" class="book-content active">
+          <!-- 책 표지 이미지: 폴더 내 실제 이미지 파일명(jpg, png 등)으로 수정하세요 -->
+          <img src="book1.jpg" alt="첫 번째 책 표지" class="book-cover">
+          <div class="book-details">
+            <span class="chapter-label">BOOK 01 · 추천 도서</span>
+            <h2>첫 번째 책 제목을 여기에 적으세요</h2>
+            <h3>지은이 / 소개한 팀원 이름</h3>
+            <p class="book-summary">
+              이곳에 책의 줄거리나 내가 이 책을 좋아하는 이유, 기억에 남는 구절을 자유롭게 작성하세요.
+              책을 클릭할 때마다 이 영역의 내용이 부드럽게 전환됩니다.
+            </p>
+            <!-- 필요하면 외부 링크(서점, 영상 등)를 연결하고, 필요 없으면 지워도 됩니다 -->
+            <a href="https://www.youtube.com" target="_blank" class="detail-link">관련 영상 / 링크 보기</a>
+          </div>
+        </article>
+
+        <!-- [책 2 내용] -->
+        <article id="book2" class="book-content">
+          <img src="book2.jpg" alt="두 번째 책 표지" class="book-cover">
+          <div class="book-details">
+            <span class="chapter-label">BOOK 02 · 인생 책</span>
+            <h2>두 번째 책 제목을 여기에 적으세요</h2>
+            <h3>지은이 / 소개한 팀원 이름</h3>
+            <p class="book-summary">
+              두 번째 책에 대한 설명과 에피소드를 적는 공간입니다.
+              팀원 각자가 맡은 소주제에 맞춰 책 한 권씩 내용을 채워 넣으면 협업하기 좋습니다.
+            </p>
+            <a href="https://www.youtube.com" target="_blank" class="detail-link">관련 영상 / 링크 보기</a>
+          </div>
+        </article>
+
+        <!-- [책 3 내용] -->
+        <article id="book3" class="book-content">
+          <img src="book3.jpg" alt="세 번째 책 표지" class="book-cover">
+          <div class="book-details">
+            <span class="chapter-label">BOOK 03 · 최근 읽은 책</span>
+            <h2>세 번째 책 제목을 여기에 적으세요</h2>
+            <h3>지은이 / 소개한 팀원 이름</h3>
+            <p class="book-summary">
+              세 번째 책의 소개 글을 이곳에 입력해 주세요.
+              줄바꿈이 필요하면 &lt;br&gt; 태그를 사용하거나 문단(&lt;p&gt;)을 하나 더 추가하면 됩니다.
+            </p>
+            <a href="https://www.youtube.com" target="_blank" class="detail-link">관련 영상 / 링크 보기</a>
+          </div>
+        </article>
+
+      </section>
+    </main>
+
+    <!-- 4. 하단 푸터 -->
+    <footer class="main-footer">
+      <p>오픈소스개발과활용 · 미니 홈페이지 프로젝트</p>
+    </footer>
+  </div>
+
+  <!-- 책 클릭 시 해당 책 내용을 보여주는 간단한 동작 스크립트 -->
+  <script>
+    const books = document.querySelectorAll('.book-spine');
+    const contents = document.querySelectorAll('.book-content');
+
+    books.forEach((book) => {
+      book.addEventListener('click', () => {
+        // 1. 모든 책등과 내용에서 active(활성화) 표시 제거
+        books.forEach((b) => b.classList.remove('active'));
+        contents.forEach((c) => c.classList.remove('active'));
+
+        // 2. 방금 클릭한 책등 강조
+        book.classList.add('active');
+
+        // 3. 클릭한 책의 data-book 값과 같은 id를 가진 내용 표시
+        const targetId = book.getAttribute('data-book');
+        document.getElementById(targetId).classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>
